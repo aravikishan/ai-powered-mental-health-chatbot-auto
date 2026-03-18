@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Resources</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Resources</h1>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/chat">Chat</a>
+        <a href="/profile">Profile</a>
+        <a href="/resources">Resources</a>
+        <a href="/about">About</a>
+    </nav>
+    <main class="container">
+        <div class="card" id="resources-list">
+            <!-- Resources will be loaded here -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Mental Health Chatbot</p>
+    </footer>
+    <script src="/static/js/main.js"></script>
+    <script>
+        function loadResources() {
+            fetch('/api/resources')
+                .then(response => response.json())
+                .then(data => {
+                    const resourcesList = document.getElementById('resources-list');
+                    resourcesList.innerHTML = data.map(resource => `<div class='mb-3'>
+                        <h5>${resource.title}</h5>
+                        <p>${resource.description}</p>
+                        <a href='${resource.link}' target='_blank'>Read more</a>
+                    </div>`).join('');
+                });
+        }
+        loadResources();
+    </script>
+</body>
+</html>

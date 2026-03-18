@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Your Profile</h1>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/chat">Chat</a>
+        <a href="/profile">Profile</a>
+        <a href="/resources">Resources</a>
+        <a href="/about">About</a>
+    </nav>
+    <main class="container">
+        <div class="card">
+            <div id="profile-info">
+                <!-- Profile information will be loaded here -->
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Mental Health Chatbot</p>
+    </footer>
+    <script src="/static/js/main.js"></script>
+    <script>
+        function loadProfile() {
+            fetch('/api/users/1')
+                .then(response => response.json())
+                .then(data => {
+                    const profileInfo = document.getElementById('profile-info');
+                    profileInfo.innerHTML = `<p><strong>Name:</strong> ${data.name}</p>
+                                             <p><strong>Email:</strong> ${data.email}</p>
+                                             <p><strong>Age:</strong> ${data.age}</p>
+                                             <p><strong>Mood:</strong> ${data.mood}</p>`;
+                });
+        }
+        loadProfile();
+    </script>
+</body>
+</html>
